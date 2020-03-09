@@ -10,7 +10,8 @@ namespace OCP_Shape_Order
         {
             var shapes = new List<Shape>(){
                 new Square(),
-                new Circle()
+                new Circle(),
+                new Triangle()
             };
 
             Program.DrawAllShapes(shapes);
@@ -25,7 +26,7 @@ namespace OCP_Shape_Order
         }
     }
 
-    public interface Shape : IComparable {
+    public interface Shape {
         void Draw();
     }
 
@@ -35,6 +36,7 @@ namespace OCP_Shape_Order
 
         public ShapeComparer()
         {
+            priorities.Add(typeof(Triangle), 0);
             priorities.Add(typeof(Circle), 1);
             priorities.Add(typeof(Square), 2);
         }
@@ -55,13 +57,6 @@ namespace OCP_Shape_Order
 
     public class Square : Shape
     {
-        public int CompareTo(object obj)
-        {
-            if(obj is Circle)
-                return 0;
-            return -1;
-        }
-
         public void Draw()
         {
             Console.WriteLine("Drawing Square");
@@ -70,16 +65,17 @@ namespace OCP_Shape_Order
 
     public class Circle : Shape
     {
-        public int CompareTo(object obj)
-        {
-            if (obj is Square)
-                return -1;
-            return 0;
-        }
-
         public void Draw()
         {
             Console.WriteLine("Drawing Circle");
+        }
+    }
+
+    public class Triangle : Shape
+    {
+        public void Draw()
+        {
+            Console.WriteLine("Drawing Triangle");
         }
     }
 }
